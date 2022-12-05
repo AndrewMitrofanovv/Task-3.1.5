@@ -6,7 +6,17 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
@@ -99,10 +109,6 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
-
-//    public void setRoles(Set<Role> userRoles) {
-//        this.roles.addAll(userRoles);
-//    }
 
     public void setRoles(String roles) {
         this.roles = new HashSet<>();

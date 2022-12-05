@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.Services.RoleService;
 import ru.kata.spring.boot_security.demo.Services.UserService;
 import ru.kata.spring.boot_security.demo.models.Role;
@@ -22,6 +23,16 @@ public class RestAdminController {
     public RestAdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+    }
+
+    @GetMapping
+    public ModelAndView adminPage() {
+        return new ModelAndView("admin");
+    }
+
+    @GetMapping("/user")
+    public ModelAndView showUser() {
+        return new ModelAndView("user");
     }
 
     @GetMapping("/getAuthorizedUser")

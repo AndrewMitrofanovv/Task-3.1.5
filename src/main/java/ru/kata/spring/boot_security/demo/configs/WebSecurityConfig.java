@@ -26,15 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").anonymous()
                 .antMatchers("api/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("api/user").hasAnyRole("USER", "ADMIN")
                 .anyRequest()
-//                .permitAll()
                 .authenticated()
                 .and()
 
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
                 .permitAll()
                 .successHandler(successUserHandler);
         http.logout()

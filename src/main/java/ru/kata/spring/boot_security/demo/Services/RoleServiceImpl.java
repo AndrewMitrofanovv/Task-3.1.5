@@ -20,12 +20,12 @@ public class RoleServiceImpl implements RoleService {
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-
+    @Transactional
     @Override
     public Set<Role> getAllRoles() {
         Iterable<Role>  iterable = roleRepository.findAll();
         Set<Role> set = new HashSet<>();
-        iterable.forEach(role -> set.add(role));
+        iterable.forEach(set::add);
         return set;
     }
 
@@ -33,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
     public void save(Role role) {
         roleRepository.save(role);
     }
-
+    @Transactional
     @Override
     public void saveAll(Set<Role> roles) {
         roleRepository.saveAll(roles);

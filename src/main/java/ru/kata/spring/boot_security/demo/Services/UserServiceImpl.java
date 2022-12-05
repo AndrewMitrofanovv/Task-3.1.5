@@ -11,7 +11,6 @@ import ru.kata.spring.boot_security.demo.models.User;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(String.format("User with %s id not found", id), 1));
     }
-
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
             userRepository.deleteById(id);
         }
     }
-
+    @Transactional
     @Override
     public void saveUser(User user) {
         User userSave = userRepository.findByEmail(user.getUsername());
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-
+    @Transactional
     @Override
     public void updateUser(User updateUser) {
         if (updateUser.getPassword().isEmpty()) {
